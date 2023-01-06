@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Board, Thread, Plan, Reflection, Observation, ObservationType, Update
+from .models import Thread, Observation, ObservationType, Update
 
 from datetime import datetime
 
@@ -29,10 +29,7 @@ class ObservationAdmin(admin.ModelAdmin):
         UpdateInline
     ]
 
-admin.site.register(Board)
 admin.site.register(Thread)
-admin.site.register(Plan)
-admin.site.register(Reflection)
 admin.site.register(Observation, ObservationAdmin)
 admin.site.register(ObservationType, ObservationTypeAdmin)
 
