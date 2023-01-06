@@ -1,3 +1,5 @@
+import uuid
+
 from django.db import models
 
 from django.utils.translation import ugettext_lazy as _
@@ -7,6 +9,8 @@ def default_state():
     return []
 
 class Thread(models.Model):
+    id = models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True)
+
     name = models.CharField(max_length=255)
 
     def __str__(self):
