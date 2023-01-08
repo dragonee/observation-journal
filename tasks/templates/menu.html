@@ -1,12 +1,11 @@
 <div class="cont">
     <p class="menu">
-        <a href="/">Daily</a>
-        <a href="/hello/world/">Tasks</a>
-        <a href="/observations/">Observations</a>
-        <a href="/admin/tree/observation/add/">+Observation</a>
-        <a href="/periodical/">Periodical</a>
-        <a href="/summaries/">Summaries</a>
-        <a href="/quests/">Quests</a>
-        <a href="/quests/view/">Journal</a>
+        {% if thread %}
+        <a href="{% url 'public-observation-list' thread.id %}">Open: {{ thread.name }}</a>
+        <a href="{% url 'public-observation-list-closed' thread.id %}">Closed</a>
+        <a href="{% url 'public-observation-add' thread.id %}">+Add</a>
+
+        {% endif %}
+        <a href="/">+Thread</a>
     </p>
 </div>
