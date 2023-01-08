@@ -1,4 +1,4 @@
-from django.urls import include, path
+from django.urls import include, path, re_path
 from django.views.generic import TemplateView
 
 from rest_framework import routers
@@ -10,9 +10,10 @@ router.register(r'observation-api', views.ObservationViewSet)
 
 
 urlpatterns = [
-
-    path('observations/', views.ObservationListView.as_view(), name='observation-list'),
-    path('observations/closed/', views.ObservationClosedListView.as_view(), name='observation-list-closed'),
+    re_path(r'^(?P<thread_id>[a-f0-9\-]+)/$', views.observation_list_open, name='public-observation-list'),
+    re_path(r'^(?P<thread_id>[a-f0-9\-]+)/closed/$', views.observation_list_closed, name='public-observation-list-closed'),
+    re_path(r'^(?P<thread_id>[a-f0-9\-]+)/add/$', views.observation_edit, name='public-observation-add'),
+    re_path(r'^(?P<thread_id>[a-f0-9\-]+)/(?P<observation_id>[a-f0-9\-]+)/$', views.observation_edit, name='public-observation-edit'),
 
     path('', views.start),
     path('', include(router.urls)),

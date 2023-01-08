@@ -1,31 +1,18 @@
 from django.shortcuts import render, redirect
+from datetime import date
 
 from rest_framework import viewsets
 
 from .serializers import ThreadSerializer, ObservationSerializer
-from .models import Thread, Observation
+from .models import ObservationType, Thread, Observation, Update
+from .forms import ThreadForm, ObservationForm
 
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from rest_framework.decorators import api_view
-
-from django.utils import timezone
 from django.shortcuts import get_object_or_404
-
-from django.views.generic.list import ListView
-
-from functools import reduce, partial
-from collections import OrderedDict
-
-from itertools import groupby
+from django.urls import reverse
+from django.forms import inlineformset_factory
 
 from django_filters import rest_framework as filters
 from django_filters.rest_framework import DjangoFilterBackend
-
-
-from copy import deepcopy
-
-import datetime
 
 
 class ObservationFilter(filters.FilterSet):
@@ -36,12 +23,14 @@ class ObservationFilter(filters.FilterSet):
             'date_closed': ('isnull', ),
         }
 
+
 class ObservationViewSet(viewsets.ModelViewSet):
     queryset = Observation.objects.all()
     serializer_class = ObservationSerializer
 
     filter_backends = [DjangoFilterBackend]
     filter_class = ObservationFilter
+
 
 class ThreadViewSet(viewsets.ModelViewSet):
     """
@@ -51,47 +40,80 @@ class ThreadViewSet(viewsets.ModelViewSet):
     serializer_class = ThreadSerializer
 
 
-def period_from_request(request, days=7, start=None, end=None):
-    return (
-        request.GET.get('from', start or datetime.date.today() - datetime.timedelta(days=days)),
-        request.GET.get('to', end or datetime.date.today() + datetime.timedelta(days=1))
-    )
-
-
-class ObservationListView(ListView):
-    model = Observation
-    queryset = Observation.objects \
-        .filter(date_closed__isnull=True) \
-        .select_related('thread', 'type') \
-        .prefetch_related('update_set')
-
-    paginate_by = 100
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-
-        context['open_count'] = len(Observation.objects.filter(date_closed__isnull=True))
-        context['closed_count'] = len(Observation.objects.filter(date_closed__isnull=False))
-
-        return context
-
-class ObservationClosedListView(ListView):
-    model = Observation
-    queryset = Observation.objects \
-        .filter(date_closed__isnull=False) \
-        .select_related('thread', 'type') \
-        .prefetch_related('update_set')
-
-    paginate_by = 100
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-
-        context['open_count'] = len(Observation.objects.filter(date_closed__isnull=True))
-        context['closed_count'] = len(Observation.objects.filter(date_closed__isnull=False))
-
-        return context
-
-
 def start(request):
-    return render(request, "start.html")
+    if request.method == "POST":
+        form = ThreadForm(request.POST)
+    
+        if form.is_valid():
+            thread = form.save()
+            return redirect(reverse('public-observation-list', kwargs={'thread_id': thread.id }))
+
+    else:
+        form = ThreadForm()
+
+    return render(request, "start.html", {
+        "form": form
+    })
+
+
+def observation_list(request, thread_id, is_open):
+    thread = get_object_or_404(Thread, id=thread_id)
+
+    object_list = Observation.objects \
+        .filter(thread=thread) \
+        .filter(date_closed__isnull=is_open) \
+        .select_related('thread', 'type') \
+        .prefetch_related('update_set') \
+        .order_by('-pub_date')
+    
+    open_count = len(Observation.objects.filter(date_closed__isnull=True, thread=thread))
+    closed_count = len(Observation.objects.filter(date_closed__isnull=False, thread=thread))
+
+    return render(request, "tree/observation_list.html", {
+        'object_list': object_list,
+        'open_count': open_count,
+        'closed_count': closed_count,
+        'thread': thread,
+    })
+
+
+def observation_list_open(request, thread_id):
+    return observation_list(request, thread_id, is_open=True)
+
+
+def observation_list_closed(request, thread_id):
+    return observation_list(request, thread_id, is_open=False)
+
+
+def observation_edit(request, thread_id=None, observation_id=None):
+    thread = get_object_or_404(Thread, id=thread_id)
+
+    if observation_id is not None:
+        observation = get_object_or_404(Observation, id=observation_id, thread=thread)        
+    else:
+        observation = Observation(thread=thread)
+
+    UpdateFormSet = inlineformset_factory(Observation, Update, fields=('comment',))
+
+    if request.method == "POST":
+        form = ObservationForm(request.POST, instance=observation)
+        formset = UpdateFormSet(request.POST, instance=observation)
+    
+        if form.is_valid() and formset.is_valid():
+            form.save()
+            formset.save()
+            return redirect(reverse('public-observation-list', kwargs={'thread_id': thread.id }))
+
+    else:
+        form = ObservationForm(instance=observation, initial={
+            'pub_date': date.today(),
+            'type': ObservationType.objects.first(),
+        })
+        formset = UpdateFormSet(instance=observation)
+
+    return render(request, "tree/observation_edit.html", {
+        "form": form,
+        "formset": formset,
+        "instance": observation,
+        "thread": thread,
+    })

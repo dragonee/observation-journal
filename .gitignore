@@ -11,6 +11,8 @@
 
 /src
 
+.vscode/
+
 ### Django ###
 *.log
 *.pot

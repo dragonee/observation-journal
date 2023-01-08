@@ -11,15 +11,18 @@
     <div class="cont">
         {% include "menu.html" %}
 
+        <h2>{{ thread.name }}</h2>
+
         <p class="menu observation with-badges">
-            <a href="/observations/">Open <span class="badge">{{ open_count }}</span></a>
-            <a href="/observations/closed/">Closed <span class="badge">{{ closed_count }}</span></a>
+            <a href="{% url 'public-observation-list' thread.id %}">Open <span class="badge">{{ open_count }}</span></a>
+            <a href="{% url 'public-observation-list-closed' thread.id %}">Closed <span class="badge">{{ closed_count }}</span></a>
+            <a href="{% url 'public-observation-add' thread.id %}">+ Add</a>
         </p>
     </div>
         {% for observation in object_list %}
         <article class="observation" id="observation-{{ observation.pk }}">
 
-            <div class="meta">{{ observation.pub_date }} (<span class="type">{{ observation.type }}</span>; <span class="thread">{{ observation.thread }}</span> <a href="/admin/tree/observation/{{ observation.pk }}/change/">#</a>)</div>
+            <div class="meta">{{ observation.pub_date }} (<span class="type">{{ observation.type }}</span>; <span class="thread">{{ observation.thread }}</span> <a href="{% url 'public-observation-edit' observation.thread.id observation.id %}">#</a>)</div>
             <div class="strong">{{ observation.situation|linebreaks }}</div>
 
             <div class="expand">

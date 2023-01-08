@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load render_assets %}
+
+{% block body_class %}page-daily{% endblock %}
+
+{% block content %}
+<!-- Vue entry-point -->
+
+
+<div class="daily">
+<form action="" method="POST">
+    {% csrf_token %}
+    <div class="cont">
+        <h2>
+            Edit
+        </h2>
+        
+        {% include "menu.html" %}
+
+    </div>
+
+    <div class="form">
+
+        <div class="left">
+
+            <div class="plan">
+            <h3>Observation</h3>
+            {{ form.as_p }}
+        
+            <button>Submit</button>
+            </div>
+        </div>
+
+        <div class="right">
+            <h3>Updates</h3>
+            {{ formset }}
+
+            <button>Submit</button>
+        </div>
+    </div>
+</form>
+</div>
+
+{% endblock %}
+
+<!-- Load Vue app -->
+{% block extrajs %}
+{% endblock %}
+
