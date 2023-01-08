@@ -16,9 +16,7 @@ services:
             - tasks
 
     tasks-backend:
-        build:
-            context: ../..
-            dockerfile: docker/development/Dockerfile
+        image: python:3.8-slim
         volumes:
             - "../..:/app"
         ports:
@@ -27,4 +25,12 @@ services:
             - tasks
         depends_on:
             - tasks-db
-        command: "/app/tools/run-development.sh"
+        entrypoint: 
+            - "/app/tools/run-development.sh"
+    tasks-frontend:
+        image: node:14-alpine
+        volumes:
+            - "../..:/app"
+        working_dir: /app
+        entrypoint: 
+            - "/app/tools/run-frontend.sh"

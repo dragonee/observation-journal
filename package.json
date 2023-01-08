@@ -8,7 +8,7 @@
     "build-dist": "webpack --config config/webpack.dist.js --mode production --progress --colors && sed -i -e 's?'`pwd`'?/home/sites/vhosts/tasks.makimo.pl?g' webpack-stats.dist.json",
     "watch-assets": "webpack --config config/webpack.local.js --watch --mode development",
     "watch-python": "./manage.py runserver 0.0.0.0:8000",
-    "dev": "concurrently npm:watch-*"
+    "dev": "npm run watch-assets"
   },
   "author": "Makimo",
   "license": "UNLICENSED",

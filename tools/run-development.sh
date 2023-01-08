@@ -8,7 +8,6 @@ WAIT_FOR=/app/tools/wait-for
 DATABASE_HOST=tasks-db:5432
 
 pip3 install -r $REQUIREMENTS
-npm install
-$WAIT_FOR $DATABASE_HOST -- echo 'Database ready'
+
 $MANAGE_PY migrate
-npm run dev
+$MANAGE_PY runserver 0.0.0.0:8000
