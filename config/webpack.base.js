@@ -18,7 +18,7 @@ module.exports = {
         shared:            './scripts/shared.js',
         // Vue app mount points. Used to initialise
         // underlying Vue components on a per-template basis.
-        hello_world_mount: './components/hello_world_mount.js',
+        //hello_world_mount: './components/hello_world_mount.js',
     },
     module: {
         rules: [
