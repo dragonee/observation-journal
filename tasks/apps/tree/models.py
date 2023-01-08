@@ -29,6 +29,8 @@ class ObservationType(models.Model):
 
 
 class Observation(models.Model):
+    id = models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True)
+
     pub_date = models.DateField()
 
     thread = models.ForeignKey(Thread, on_delete=models.CASCADE)
@@ -57,6 +59,9 @@ class Update(models.Model):
     observation = models.ForeignKey(Observation, on_delete=models.CASCADE)
 
     comment = models.TextField(help_text=_("Update"))
+
+    class Meta:
+        ordering = ('-pub_date', )
 
     def __str__(self):
         return self.comment
