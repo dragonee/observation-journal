@@ -2,15 +2,79 @@
 {% load render_assets %}
 
 {% block content %}
-<div class="thread form">
-    <form action="" method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
 
-        <button type="submit">
-            Submit
-        </button>
-    </form>
+<div class="new-thread page">
+
+<header class="header">
+    <h1>Observation journal</h1>
+    <p>Write an observation journal for a particular topic.</p>
+</header>
+
+<section class="thread-form">
+    <div class="thread form">
+        <h2>Create a new journal thread</h2>
+
+        <p>Add as many observations under a common thread. You can share the unique thread link with others.</p>
+
+        <form action="" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+
+            <button type="submit">
+                Create
+            </button>
+        </form>
+    </div>
+</section>
+
+<section class="how-to">
+    <h2>How does it work</h2>
+
+    <ol>
+        <li>Create a thread to start adding observations.</li>
+        <li>Each observation has three elements: <strong>Situation</strong>, <strong>Interpretation</strong> and <strong>Approach</strong>, as well as <strong>Updates</strong>.</li>
+        <li>As you go, add more and more observations, review old ones and come to new <strong>Approaches</strong>, as you <strong>close</strong> them.</li>
+    </ol>
+</section>
+
+<article class="observation no-more-link">
+    <p class="label">Situation</p>
+    <div class="situation">
+        <p>Try to separate facts from anyone's reaction and emotions to the situation.</p>
+
+        <p>This is the first element of an observation to be filled in, typically moments after the situation happens.</p>
+    </div>
+    <p class="label">Interpretation</p>
+    <div class="interpretation">
+        <p>Provide your interpretation of the situation. If there were any strong emotions and feelings here, write them down here, so that you'll learn why the situation made you so.</p>
+
+        <p>You can ask others to share their interpretations.</p>
+
+        <p>Filling this field might not be immediate.</p>
+    </div>
+    <p class="label">Approach</p>
+    <div class="approach">
+        <p>What approach should you take in the future considering this situation? When you are ready to do so, write it down for you... or for your team members.</p>
+
+        <p>Filling this field might take some time.</p>
+    </div>
+    <hr class="just-line">
+
+    <p class="label">Update on 20XX-XX-XX</p>
+    <div class="update">
+        <p>Some observations need time to arrive at a specific approach. You can write as many updates as you need to arrive at a final resolution of the situation.</p>
+    </div>
+
+    <hr class="just-line">
+
+    <div class="closed meta">
+        <em>Closed on 20XX-XX-XX</em>
+
+        <p><em>Set close date on an observation that doesn't need any more input from anybody.</em></p>
+    </div>
+
+</article>
+
 </div>
 
 {% endblock %}

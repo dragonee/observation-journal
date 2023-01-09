@@ -1,13 +1,11 @@
 {% extends 'base.html' %}
 {% load render_assets %}
 
-{% block body_class %}page-daily{% endblock %}
-
 {% block content %}
 <!-- Vue entry-point -->
 
 
-<div class="daily">
+<div class="observation-edit">
 <form action="" method="POST">
     {% csrf_token %}
     <div class="cont">

@@ -10,6 +10,10 @@ const nodeList = document.querySelectorAll(
 );
 
 [...nodeList].forEach((observation) => {
+    if (observation.classList.contains('no-more-link')) {
+        return;
+    }
+
     const link = document.createElement('span');
     link.classList.add("observation-hide");
 

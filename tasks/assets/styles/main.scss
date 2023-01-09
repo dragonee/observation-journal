@@ -5,7 +5,7 @@
 body, html {
     margin: 0;
     font-family: 'Source Sans Pro', sans-serif;
-    font-size: 0.95rem;
+    font-size: 1.14rem;
 
     color: #444;
 
@@ -29,7 +29,60 @@ strong, b, .strong {
     font-weight: 700;
 }
 
-.page-daily .daily {
+.page {
+    max-width: 1140px;
+
+    padding: 0 20px;
+
+    margin: 0 auto;
+}
+
+.new-thread {
+    section.how-to {
+        margin: 4rem 0;
+
+    }
+}
+
+.thread-form {
+    background: #205e7d;
+    border-radius: 4px;
+
+    padding: 2rem 2rem;
+
+    color: #fff;
+
+    h2 {
+        margin-top: 0;
+    }
+
+    label {
+        display: none;
+    }
+
+    form p {
+        display: inline;
+    }
+
+    input, button {
+        font-size: 1.5rem;
+        padding: 9px 20px;
+
+        border-radius: 3px;
+        border: 1px solid lighten(#205e7d, 30%);
+        background: lighten(#205e7d, 10%);
+
+        color: #fff;
+
+        outline: none;
+    }
+
+    button:hover, button:active {
+        background: lighten(#205e7d, 5%);
+    }
+}
+
+.observation-edit {
 
     width: 75%;
 
@@ -200,63 +253,63 @@ h1, h2 {
 
     margin: auto;
 
-    article {
-        position: relative;
-
-        margin: 4rem 0;
-
-        background: #fff;
-        border-radius: 4px;
-        padding: 1rem 2rem;
-
-        .expand {
-            display: none;
-        }
-
-        &.open .expand {
-            display: block;
-        }
-
-        .observation-hide {
-            color: #4a7dfb;
-            cursor: pointer;
-
-            &::after {
-                display: block;
-
-                content: "More";
-                position: absolute;
-                bottom: 0;
-                right: 0;
-                padding: 4px 6px;
-            }
-
-            &:hover {
-                color: darken(#4a7dfb, 20%);
-            }
-        }
-
-        &.open .observation-hide {
-            &::after {
-                content: "Less";
-            }
-
-            &::before {
-                display: block;
-
-                content: "Less";
-                position: absolute;
-                top: 0;
-                right: 0;
-                padding: 4px 6px;
-            }
-        }
-    }
-
     .cont + article {
         border-top-left-radius: 0;
 
         margin-top: 0;
+    }  
+}
+
+article.observation {
+    position: relative;
+
+    margin: 4rem 0;
+
+    background: #fff;
+    border-radius: 4px;
+    padding: 1rem 2rem;
+
+    .expand {
+        display: none;
+    }
+
+    &.open .expand {
+        display: block;
+    }
+
+    .observation-hide {
+        color: #4a7dfb;
+        cursor: pointer;
+
+        &::after {
+            display: block;
+
+            content: "More";
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            padding: 4px 6px;
+        }
+
+        &:hover {
+            color: darken(#4a7dfb, 20%);
+        }
+    }
+
+    &.open .observation-hide {
+        &::after {
+            content: "Less";
+        }
+
+        &::before {
+            display: block;
+
+            content: "Less";
+            position: absolute;
+            top: 0;
+            right: 0;
+            padding: 4px 6px;
+        }
     }
 
     .label + div p:first-child {
