@@ -1,8 +1,7 @@
 {
   "app.css": "143.css",
-  "app.js": "app.a8d8b19fce9b8366790c.js",
-  "hello_world_mount.js": "hello_world_mount.7ad2e1222392a3eb1200.js",
-  "runtime.js": "runtime.9349717a8152be52ba5c.js",
-  "shared.js": "shared.07a7befbd04247b98392.js",
-  "vendor.js": "vendor.2a246f8b21929cf987d6.js"
+  "app.js": "app.c86eda9204a26c49c50e.js",
+  "runtime.js": "runtime.64664e4266bbda06e360.js",
+  "shared.js": "shared.24f0f3ce4dd71724f4a7.js",
+  "vendor.js": "vendor.6fd1abc05a9be898e395.js"
 }

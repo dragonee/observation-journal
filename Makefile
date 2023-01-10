@@ -16,7 +16,7 @@ tasks/settings/email.py: tasks/settings/email.py.base
 	editor tasks/settings/email.py
 
 static:
-	docker-compose -f docker/development/docker-compose.yml exec tasks-backend npm run build-dist 
+	docker-compose -f docker/development/docker-compose.yml exec tasks-frontend npm run build-dist 
 	docker-compose -f docker/development/docker-compose.yml exec tasks-backend python3 manage.dist.py collectstatic
 
 # vim: set noet:

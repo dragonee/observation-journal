@@ -1,0 +1,1 @@
+(self.webpackChunk=self.webpackChunk||[]).push([[143],{62:()=>{},389:(e,s,n)=>{n(62),[...document.querySelectorAll("article.observation")].forEach((e=>{if(e.classList.contains("no-more-link"))return;const s=document.createElement("span");s.classList.add("observation-hide"),s.addEventListener("click",(()=>{e.classList.toggle("open")})),e.appendChild(s)}))}},e=>{e(e.s=389)}]);

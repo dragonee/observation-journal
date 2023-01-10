@@ -25,6 +25,7 @@ services:
             - tasks
         depends_on:
             - tasks-db
+        working_dir: /app
         entrypoint: 
             - "/app/tools/run-development.sh"
     tasks-frontend:
