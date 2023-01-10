@@ -5,35 +5,33 @@
 <!-- Vue entry-point -->
 
 
-<div class="observation-edit">
+<div class="observation-edit page">
 <form action="" method="POST">
     {% csrf_token %}
     <div class="cont">
-        <h2>
-            Edit
-        </h2>
-        
         {% include "menu.html" %}
-
     </div>
 
     <div class="form">
 
         <div class="left">
-
-            <div class="plan">
             <h3>Observation</h3>
+            <p class="meta">Provide situation, then interpretation and approach.</p>
             {{ form.as_p }}
         
-            <button>Submit</button>
-            </div>
+            <div class="submit">
+                <button class="submit">Submit</button>
+            </div>            
         </div>
 
         <div class="right">
             <h3>Updates</h3>
+            <p class="meta">Optional. All existing updates and up to 3 extra are here.</p>
             {{ formset }}
 
-            <button>Submit</button>
+            <div class="submit">
+                <button class="submit">Submit</button>
+            </div>
         </div>
     </div>
 </form>

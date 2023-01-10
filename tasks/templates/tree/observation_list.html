@@ -5,11 +5,13 @@
 <!-- Vue entry-point -->
 
 
-<div class="observations">
+<div class="observations page">
     <div class="cont">
         {% include "menu.html" %}
 
-        <h2>{{ thread.name }}</h2>
+        <header class="header">
+            <h1>{{ thread.name }}</h1>
+        </header>
 
         <p class="menu observation with-badges">
             <a href="{% url 'public-observation-list' thread.id %}">Open <span class="badge">{{ open_count }}</span></a>
@@ -20,7 +22,7 @@
         {% for observation in object_list %}
         <article class="observation" id="observation-{{ observation.pk }}">
 
-            <div class="meta">{{ observation.pub_date }} (<span class="type">{{ observation.type }}</span> <a href="{% url 'public-observation-edit' observation.thread.id observation.id %}">✎</a>)</div>
+            <div class="meta">{{ observation.pub_date }} · <span class="type">{{ observation.type }}</span> · <a href="{% url 'public-observation-edit' observation.thread.id observation.id %}">edit</a></div>
             <p class="label">Situation</p>
             <div class="situation">{{ observation.situation|linebreaks }}</div>
 
@@ -56,7 +58,7 @@
 
         {% empty %}
         <div class="empty">
-            No articles yet.
+            No observations yet. Create first observation with <a href="{% url 'public-observation-add' thread.id %}">+ Add</a>.
         </div>
         {% endfor %}
 </div>

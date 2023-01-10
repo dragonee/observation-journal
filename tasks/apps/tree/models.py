@@ -31,16 +31,16 @@ class ObservationType(models.Model):
 class Observation(models.Model):
     id = models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True)
 
-    pub_date = models.DateField()
+    pub_date = models.DateField(_("Observation date"))
 
     thread = models.ForeignKey(Thread, on_delete=models.CASCADE)
-    type = models.ForeignKey(ObservationType, on_delete=models.CASCADE)
+    type = models.ForeignKey(ObservationType, on_delete=models.CASCADE, help_text=_("What type of observation is it?"))
 
     situation = models.TextField(help_text=_("What happened?"), null=True, blank=True)
     interpretation = models.TextField(help_text=_("How you saw it, what you felt?"), null=True, blank=True)
     approach = models.TextField(help_text=_("How should you approach it in the future?"), null=True, blank=True)
 
-    date_closed = models.DateField(help_text=_("Closed"), null=True, blank=True)
+    date_closed = models.DateField(help_text=_("Optional – set this date whenever you feel the work on this observation is complete."), null=True, blank=True)
 
     class Meta:
         ordering = ('-pub_date', )
@@ -58,7 +58,7 @@ class Update(models.Model):
 
     observation = models.ForeignKey(Observation, on_delete=models.CASCADE)
 
-    comment = models.TextField(help_text=_("Update"))
+    comment = models.TextField(_("Update"))
 
     class Meta:
         ordering = ('-pub_date', )
