@@ -5,7 +5,7 @@ DEBUG = False
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
-ALLOWED_HOSTS = ['tasks.polybrain.org', 'localhost']
+ALLOWED_HOSTS = ['journal.makimo.pl', 'localhost']
 
 # Admins
 ADMINS = (
