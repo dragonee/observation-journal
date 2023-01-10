@@ -116,6 +116,7 @@ packages, running tests, running Django commands etc.) please run in the
 separate terminal window (while `docker-compose up` is running) the
 following command:
 
+
 ```
 docker-compose exec tasks-backend bash
 ```
