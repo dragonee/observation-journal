@@ -60,8 +60,43 @@ strong, b, .strong {
         display: none;
     }
 
+    form {
+        display: flex;
+
+        justify-content: start;
+    }
+
     form p {
-        display: inline;
+        flex: 3 3 60%;
+        margin: 0;
+
+        max-width: 600px;
+
+        input {
+            width: 100%;
+        }
+    }
+
+    @media screen and (max-width: 639px) {
+        form {
+            justify-content: end;
+
+            flex-wrap: wrap;
+        }
+        
+        form p {
+            width: 100%;
+            flex: 0 0 100%;
+        }
+
+        button {
+            margin-top: 1rem;
+        }
+    }
+
+    button {
+        flex: 0 1 20%;
+        margin-left: 1rem;
     }
 
     input, button {
@@ -129,6 +164,17 @@ strong, b, .strong {
     .left, .right {
         margin: 0 20px 4rem;
         flex: 1;
+    }
+
+    @media screen and (max-width: 767px) {
+        .form {
+            flex-wrap: wrap;
+        }
+
+        .left, .right {
+            width: 100%;
+            flex: 0 0 calc(100% - 40px);
+        }
     }
 
     label {
@@ -278,6 +324,21 @@ a, .menulink {
 
         &:first-child {
             padding-left: 2rem;
+        }
+    }
+
+    @media screen and (max-width: 459px) {
+        a {
+            width: 100%;
+            border-radius: 0;
+            margin-left: 0;
+            border-bottom: 1px solid #eee;
+
+            text-align: center;
+
+            &:first-child {
+                padding-left: 1rem;
+            }
         }
     }
 }

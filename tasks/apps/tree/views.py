@@ -74,6 +74,7 @@ def observation_list(request, thread_id, is_open):
         'open_count': open_count,
         'closed_count': closed_count,
         'thread': thread,
+        'is_closed_view': not is_open,
     })
 
 
@@ -116,4 +117,5 @@ def observation_edit(request, thread_id=None, observation_id=None):
         "formset": formset,
         "instance": observation,
         "thread": thread,
+        "thread_as_link": True,
     })

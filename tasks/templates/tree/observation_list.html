@@ -15,7 +15,9 @@
 
         <p class="menu observation with-badges">
             <a href="{% url 'public-observation-list' thread.id %}">Open <span class="badge">{{ open_count }}</span></a>
-            <a href="{% url 'public-observation-list-closed' thread.id %}">Closed <span class="badge">{{ closed_count }}</span></a>
+            {% if closed_count > 0 %}
+                <a href="{% url 'public-observation-list-closed' thread.id %}">Closed <span class="badge">{{ closed_count }}</span></a>
+            {% endif %}
             <a href="{% url 'public-observation-add' thread.id %}">+ Add</a>
         </p>
     </div>
@@ -58,7 +60,11 @@
 
         {% empty %}
         <div class="empty">
-            No observations yet. Create first observation with <a href="{% url 'public-observation-add' thread.id %}">+ Add</a>.
+            {% if is_closed_view %}
+                No observations were yet closed. If you are done one of your observations, set a close date on it.
+            {% else %}
+                No observations yet. Create first observation with <a href="{% url 'public-observation-add' thread.id %}">+ Add</a>.
+            {% endif %}
         </div>
         {% endfor %}
 </div>

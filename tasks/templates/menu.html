@@ -1,12 +1,12 @@
 <div class="cont">
     <p class="menu">
         {% if thread %}
-        <span class="link-section">Thread: {{ thread.name }}</span>
-        
         <span class="link-section">
-            <a href="{% url 'public-observation-list' thread.id %}">Open</a>
-            <a href="{% url 'public-observation-list-closed' thread.id %}">Closed</a>
-            <a href="{% url 'public-observation-add' thread.id %}">+Add</a>
+            {% if thread_as_link %}
+                <a href="{% url 'public-observation-list' thread.id %}">Thread: {{ thread.name }}</a>
+            {% else %}
+                Thread: {{ thread.name }}
+            {% endif %}
         </span>
 
         {% endif %}
