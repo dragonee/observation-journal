@@ -1,6 +1,14 @@
 {% extends 'base.html' %}
 {% load render_assets %}
 
+{% block title %}
+    {% if instance.situation %}
+        {{ instance.situation_truncated }} – {{ thread.name }} – Observation Journal
+    {% else %}
+        Add an observation – {{ thread.name }} – Observation Journal
+    {% endif %}
+{% endblock %}
+
 {% block content %}
 <!-- Vue entry-point -->
 

@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
 {% load render_assets %}
 
+{% block title %}{{ thread.name }} – {% if is_closed_view %}Closed /{% endif %}
+Observation Journal{% endblock %}
+
 {% block content %}
 <!-- Vue entry-point -->
 

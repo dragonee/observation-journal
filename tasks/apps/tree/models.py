@@ -45,10 +45,14 @@ class Observation(models.Model):
     class Meta:
         ordering = ('-pub_date', )
 
+    @property
+    def situation_truncated(self):
+        return Truncator(self.situation).words(6)
+
     def __str__(self):
         return "{}: {} ({})".format(
             self.pub_date,
-            Truncator(self.situation).words(6),
+            self.situation_truncated,
             self.thread
         )
 
