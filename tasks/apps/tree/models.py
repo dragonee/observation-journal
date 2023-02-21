@@ -49,6 +49,9 @@ class Observation(models.Model):
     def situation_truncated(self):
         return Truncator(self.situation).words(6)
 
+    def updates_from_latest(self):
+        return self.update_set.order_by('-pk')
+
     def __str__(self):
         return "{}: {} ({})".format(
             self.pub_date,
@@ -65,7 +68,7 @@ class Update(models.Model):
     comment = models.TextField(_("Update"))
 
     class Meta:
-        ordering = ('-pub_date', )
+        ordering = ('pk', )
 
     def __str__(self):
         return self.comment

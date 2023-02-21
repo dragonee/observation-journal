@@ -37,10 +37,10 @@ Observation Journal{% endblock %}
             <p class="label">Approach</p>
             <div class="approach">{{ observation.approach|linebreaks }}</div>
 
-            {% if observation.update_set.all %}
+            {% if observation.updates_from_latest %}
                 <hr class="just-line">
 
-                {% for update in observation.update_set.all %}
+                {% for update in observation.updates_from_latest %}
                     <div class="update">
                         <p class="label">Update on {{ update.pub_date|date:"Y-m-d" }}</p>
                         <div>
